@@ -86,6 +86,7 @@ See [server demo](example) and [browser demo](https://github.com/bcherny/json-sc
 | cwd       | string      | Root directory for resolving [`$ref`](https://tools.ietf.org/id/draft-pbryan-zyp-json-ref-03.html)s |
 | declareExternallyReferenced | boolean | Declare external schemas referenced via `$ref`? |
 | enableConstEnums | boolean | Prepend enums with [`const`](https://www.typescriptlang.org/docs/handbook/enums.html#computed-and-constant-members)? |
+| interfacePrefix | string | Prefix that will be added in front of any interface name. |
 | style | object | A [Prettier](https://prettier.io/docs/en/options.html) configuration |
 | unreachableDefinitions | boolean | Generates code for `definitions` that aren't referenced by the schema. |
 
@@ -104,6 +105,15 @@ json2ts --input foo.json --output foo.d.ts
 # or
 json2ts -i foo.json -o foo.d.ts
 ```
+
+Following options can be set from the command line (style option is not foreseen).
+| key                         | shortcut | type        | note               |
+|-----------------------------|----------|-------------|--------------------|
+| cwd                         | c        | string      | Root directory for resolving [`$ref`](https://tools.ietf.org/id/draft-pbryan-zyp-json-ref-03.html)s |
+| declareExternallyReferenced | d        | boolean     | Declare external schemas referenced via `$ref`? |
+| interfacePrefix             | ip       | string      | Prefix that will be added in front of any interface name. |
+| enableConstEnums            | e        | boolean     | Prepend enums with [`const`](https://www.typescriptlang.org/docs/handbook/enums.html#computed-and-constant-members)? |
+| unreachableDefinitions      | u        | boolean     | Generates code for `definitions` that aren't referenced by the schema. |
 
 ## Tests
 

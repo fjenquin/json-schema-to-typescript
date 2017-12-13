@@ -5,13 +5,18 @@ import minimist = require('minimist')
 import { readFile, writeFile } from 'mz/fs'
 import { resolve } from 'path'
 import stdin = require('stdin')
-import { compile } from './index'
+import { compile, DEFAULT_OPTIONS } from './index'
 
 main(minimist(process.argv.slice(2), {
   alias: {
+    cwd: ['c'],
+    declareExternallyReferenced: ['d'],
+    enableConstEnums: ['e'],
     help: ['h'],
     input: ['i'],
-    output: ['o']
+    interfacePrefix: ['ip'],
+    output: ['o'],
+    unreachableDefinitions: ['u']
   }
 }))
 
@@ -24,10 +29,20 @@ async function main(argv: minimist.ParsedArgs) {
 
   const argIn: string = argv._[0] || argv.input
   const argOut: string = argv._[1] || argv.output
+  const options = {
+    ...DEFAULT_OPTIONS
+  }
+
+  if (argv.cwd) {
+    options.cwd = argv.cwd
+  }
+  if (argv.interfacePrefix) {
+    options.interfacePrefix = argv.interfacePrefix
+  }
 
   try {
     const schema: JSONSchema4 = JSON.parse(await readInput(argIn))
-    const ts = await compile(schema, argIn)
+    const ts = await compile(schema, argIn, options)
     await writeOutput(ts, argOut)
   } catch (e) {
     process.stderr.write(e.message)

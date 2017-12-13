@@ -225,7 +225,7 @@ function newInterface(
     comment: schema.description,
     keyName,
     params: parseSchema(schema, options, rootSchema, processed, usedNames, name),
-    standaloneName: name,
+    standaloneName: options.interfacePrefix + name,
     superTypes: parseSuperTypes(schema, options, processed, usedNames),
     type: 'INTERFACE'
   }
